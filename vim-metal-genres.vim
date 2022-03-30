@@ -1,4 +1,4 @@
-" Band genre
+" vim-metal-genres.vim
 
 function! GenresFormat()
 	:g/^\s*$/d
@@ -6,9 +6,17 @@ function! GenresFormat()
 	:%norm Ji -
 endfunction
 
-function! GenresCount()
+function! GenresBandCount()
 	:%norm 0t-D
 	:%!uniq -ci
+	:%le
+	:sort! n
+	:%norm 0wi- gg<CR>
+endfunction
+
+function! GenresCount()
+	:%norm 0t-D
+	:%!sort | uniq -ci
 	:%le
 	:sort! n
 	:%norm 0wi- gg<CR>
@@ -89,6 +97,11 @@ function! GenresReplace()
 	:%s/Hamferð/Doom Metal/e
 	:%s/Mahr/Black Atmospheric Metal/e
 	:%s/Biomechanical/Progressive Metal/e
+	:%s/Immortal/Black Metal/e
+	:%s/Bell Witch/Doom Funeral Metal/e
+	:%s/Pantera/Thrash Metal/e
+	:%s/Bathory/Black Metal/e
+	:%s/Metal Metal/Metal/e
 endfunction
 
 function! GenresSort()
@@ -98,8 +111,8 @@ endfunction
 
 function! Genres()
 	call GenresFormat()
-	call GenresCount()
 	call GenresBandReplace()
 	call GenresReplace()
+	call GenresCount()
 	call GenresSort()
 endfunction
